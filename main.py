@@ -15,6 +15,7 @@ def greedy_change(denominations, target):
     # Keep using a coin while it fits the unpaid amount.
     # Return the chosen coins for an exact payment, including [] for zero.
     # Return None if an unpaid amount remains. Do not change denominations.
+    
     unpaid = target
     chosen = []
     for coin in sorted(denominations, reverse=True):
