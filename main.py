@@ -3,7 +3,7 @@
 from investigation_support import validate_change
 from investigation_display import run
 
-ENABLE_MEMOIZATION = False  # Change to True after Thursday's helper works.
+ENABLE_MEMOIZATION = True  # Change to True after Thursday's helper works.
 
 
 # TUESDAY — Implement the local choice; the reference solver is supplied.
@@ -31,13 +31,18 @@ def calculate_cached(n, cache, counts):
     counts["calls"] += 1
     # Before computing, check whether this input already has a saved answer.
     # A saved zero is still an answer. Count a hit and return that saved value.
+    if n in cache:
+        counts["hits"] += 1
+        return cache[n]
     if n < 2:
         result = n
     else:
         previous = calculate_cached(n - 1, cache, counts)
         earlier = calculate_cached(n - 2, cache, counts)
         result = previous + earlier
+
     # Save the result under this input, including base-case results.
+    cache[n] = result
     return result
 
 
